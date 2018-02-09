@@ -1,14 +1,35 @@
-# react_family basic framework
+import React, { Component } from 'react'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
-react redux react-redux redux-thunk react-router-dom asios
+import App from '@views/app'
 
-dynamic import
-babel-plugin-syntax-dynamic-import .babelrc文件的plungins中加上"syntax-dynamic-import"
+const Main = (props) => (
+  <Bundle load={() => import('@views/main/main')}>
+    {(Main) => <Main {...props} />}
+  </Bundle>
+)
 const About = (props) => (
   <Bundle load={() => import('@views/about/about')}>
     {(About) => <About {...props} />}
   </Bundle>
 )
+
+export default class RouterMap extends Component {
+  render () {
+    return (
+      <Router>
+        <App>
+          <Switch>
+            <Route path="/" exact component={Main}/>
+            <Route path="/main" component={Main}/>
+            <Route path="/about" component={About}/>
+          </Switch>
+        </App>
+      </Router>
+    )
+  }
+}
+
 class Bundle extends Component {
   constructor(props) {
     super(props)

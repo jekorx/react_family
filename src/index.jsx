@@ -1,24 +1,16 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 
-import App from '@/app'
 import '@styles/reset'
+import RouterMap from '@route/routerMap'
 
 // 使用react-hot-loader模块热更新
 if (module.hot) {
   module.hot.accept(() => {
     render(
       <AppContainer>
-        <Router>
-          <Switch>
-            <Route path="/" exact component={App} />
-            <Route render={() => (
-              <h5>404</h5>
-            )} />
-          </Switch>
-        </Router>
+        <RouterMap />
       </AppContainer>,
       document.getElementById('root')
     )
@@ -26,14 +18,7 @@ if (module.hot) {
 }
 
 render(
-  <Router>
-    <Switch>
-      <Route path="/" exact component={App} />
-      <Route render={() => (
-        <h5>404</h5>
-      )} />
-    </Switch>
-  </Router>,
+  <RouterMap />,
   document.getElementById('root')
 )
 
