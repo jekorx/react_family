@@ -1,16 +1,32 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader'
 
 import '@styles/reset'
-import RouterMap from '@route/routerMap'
+
+import reducer from '@store/reducer'
+import RootRouter from '@route/router'
+
+let store = createStore(reducer)
+
+if (module.hot) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept('@store/reducer', () => {
+    const nextRootReducer = require('@store/reducer')
+    store.replaceReducer(nextRootReducer)
+  })
+}
 
 // 使用react-hot-loader模块热更新
 if (module.hot) {
   module.hot.accept(() => {
     render(
       <AppContainer>
-        <RouterMap />
+        <Provider store={store}>
+          <RootRouter />
+        </Provider>
       </AppContainer>,
       document.getElementById('root')
     )
@@ -18,7 +34,9 @@ if (module.hot) {
 }
 
 render(
-  <RouterMap />,
+  <Provider store={store}>
+    <RootRouter />
+  </Provider>,
   document.getElementById('root')
 )
 

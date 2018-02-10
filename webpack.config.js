@@ -31,6 +31,7 @@ const config = {
       '@images': resolve('src/assets/images'),
       '@styles': resolve('src/assets/styles'),
       '@route': resolve('src/route'),
+      '@store': resolve('src/store'),
       '@views': resolve('src/views'),
       '@components': resolve('src/components')
     }

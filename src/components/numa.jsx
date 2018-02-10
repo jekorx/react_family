@@ -4,7 +4,7 @@ export default class Numa extends Component {
   render() {
     return (
       <div>
-        Number A :
+        Number A : {this.props.num}
       </div>
     )
   }

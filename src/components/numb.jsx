@@ -4,7 +4,7 @@ export default class Numb extends Component {
   render() {
     return (
       <div>
-        Number B :
+        Number B : {this.props.num}
       </div>
     )
   }

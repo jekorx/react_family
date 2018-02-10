@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
+import Bundle from '@route/bundle'
 import App from '@views/app'
 
+// 懒加载相关组件（分离打包）
 const Main = (props) => (
   <Bundle load={() => import('@views/main/main')}>
     {(Main) => <Main {...props} />}
@@ -13,8 +15,8 @@ const About = (props) => (
     {(About) => <About {...props} />}
   </Bundle>
 )
-
-export default class RouterMap extends Component {
+// 配置相关主路由
+export default class RootRouter extends Component {
   render () {
     return (
       <Router>
@@ -27,36 +29,5 @@ export default class RouterMap extends Component {
         </App>
       </Router>
     )
-  }
-}
-
-class Bundle extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      mod: null
-    }
-  }
-  componentWillMount() {
-    this.load(this.props)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.load !== this.props.load) {
-      this.load(nextProps)
-    }
-  }
-  load(props) {
-    this.setState({
-      mod: null
-    })
-    //注意这里，使用Promise对象; mod.default导出默认
-    props.load().then(mod => {
-      this.setState({
-        mod: mod.default ? mod.default : mod
-      })
-    })
-  }
-  render() {
-    return this.state.mod ? this.props.children(this.state.mod) : null
   }
 }
