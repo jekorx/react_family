@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 
-import Counter from '@containers/counter'
-import Product from '@views/about/product'
-import Num from '@views/about/num'
+import Bundle from '@route/bundle'
+
+const Counter = (props) => (
+  <Bundle load={() => import('@containers/counter')}>
+    {(Counter) => <Counter {...props} />}
+  </Bundle>
+)
+
+const Product = (props) => (
+  <Bundle load={() => import('@views/about/product')}>
+    {(Product) => <Product {...props} />}
+  </Bundle>
+)
 
 export default class About extends Component {
   render() {

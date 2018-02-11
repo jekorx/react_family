@@ -3,13 +3,9 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Bundle from '@route/bundle'
 import App from '@views/app'
+import Main from '@views/main/main'
 
 // 懒加载相关组件（分离打包）
-const Main = (props) => (
-  <Bundle load={() => import('@views/main/main')}>
-    {(Main) => <Main {...props} />}
-  </Bundle>
-)
 const About = (props) => (
   <Bundle load={() => import('@views/about/about')}>
     {(About) => <About {...props} />}
