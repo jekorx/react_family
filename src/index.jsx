@@ -9,15 +9,16 @@ import '@styles/reset'
 import reducer from '@store/reducer'
 import RootRouter from '@route/router'
 
+// 创建store
 let store = createStore(reducer)
 
-/* if (module.hot) {
+// 热更新store
+if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('@store/reducer', () => {
-    const nextRootReducer = require('@store/reducer')
-    store.replaceReducer(nextRootReducer)
-  })
-} */
+    store.replaceReducer(require('@store/reducer'))
+  });
+}
 
 // 使用react-hot-loader模块热更新
 if (module.hot) {
