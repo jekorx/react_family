@@ -1,4 +1,4 @@
-import * as types from './type'
+import * as types from '@store/number/type'
 
 export const INCREMENT_NUM_A = () => {
   return {

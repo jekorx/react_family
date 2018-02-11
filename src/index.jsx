@@ -11,13 +11,13 @@ import RootRouter from '@route/router'
 
 let store = createStore(reducer)
 
-if (module.hot) {
+/* if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('@store/reducer', () => {
     const nextRootReducer = require('@store/reducer')
     store.replaceReducer(nextRootReducer)
   })
-}
+} */
 
 // 使用react-hot-loader模块热更新
 if (module.hot) {

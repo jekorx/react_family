@@ -1,22 +1,32 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import * as actions from '@store/number/action'
-
-class Buttons extends Component {
-  incrementNumA (e) {
-    this.props.dispatch(actions.INCREMENT_NUM_A())
-  }
+export default class Buttons extends Component {
   render() {
+    const {
+      incrementNumA,
+      decrementNumA,
+      incrementNumB,
+      decrementNumB
+    } = this.props.onClick;
     return (
       <div>
-        <button onClick={e => this.incrementNumA(e)}>A++</button>
-        <button>A--</button>
-        <button>B++</button>
-        <button>B--</button>
+        <button onClick={e => {
+          e.preventDefault()
+          incrementNumA()
+        }}>A++</button>
+        <button onClick={e => {
+          e.preventDefault()
+          decrementNumA()
+        }}>A--</button>
+        <button onClick={e => {
+          e.preventDefault()
+          incrementNumB()
+        }}>B++</button>
+        <button onClick={e => {
+          e.preventDefault()
+          decrementNumB()
+        }}>B--</button>
       </div>
     )
   }
 }
-
-export default connect(dispatch => dispatch)(Buttons)
