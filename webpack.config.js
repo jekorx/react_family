@@ -50,10 +50,6 @@ const config = {
         // 排除node_modules目录
         exclude: /node_modules/
       }, {
-        /* 开发中如果使用css文件，需以下配置 */
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }, {
         test: /\.(gif|jpg|jpeg|png|svg)$/,
         use: [{
           loader: 'url-loader',
@@ -77,7 +73,7 @@ const config = {
     // 自动生成一个html文件、引入相关静态资源、bundle.js等功能
     new HTMLWebpackPlugin({
       // 标题
-      title: 'React_basic',
+      title: 'React_Family',
       // 模版
       template: resolve('src/tpl/index.html'),
       // 给定的图标路径，可将其添加到输出html中
@@ -92,6 +88,16 @@ if (isDev) {
     'react-hot-loader/patch',
     resolve('src/index.jsx')
   ]
+  // 开发中如果使用css文件，需以下配置
+  config.module.rules.push({
+    test: /\.css$/,
+    use: ['style-loader', 'css-loader', {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true
+      }
+    }]
+  })
   // 开发环境stylus配置
   config.module.rules.push({
     test: /\.styl$/,
@@ -109,6 +115,8 @@ if (isDev) {
   config.devtool = '#cheap-module-eval-source-map'
   // 配置devServer
   config.devServer = {
+    // 当使用HTML5 History API时，任意的404响应都可能需要被替代为index.html
+    historyApiFallback: true,
     // 端口
     port: 8001,
     // 本机内外网ip可访问
@@ -138,6 +146,21 @@ if (isDev) {
   }
   // 生产环境输出的js名称
   config.output.filename = '[name].[chunkhash:6].js'
+  // 生产中将css提取
+  config.module.rules.push({
+    test: /\.css$/,
+    // loader处理后依次往上处理，最后打包成css文件
+    use: ExtractTextWebpackPlugin.extract({
+      fallback: 'style-loader',
+      use: [{
+        loader: 'css-loader',
+        options: {
+          // css压缩
+          minimize: true
+        }
+      }, 'postcss-loader']
+    })
+  })
   // 生产环境stylus配置
   config.module.rules.push({
     test: /\.styl$/,
@@ -150,12 +173,7 @@ if (isDev) {
           // css压缩
           minimize: true
         }
-      }, {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: false
-        }
-      }, 'stylus-loader']
+      }, 'postcss-loader', 'stylus-loader']
     })
   })
   config.plugins.push(

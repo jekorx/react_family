@@ -2,6 +2,12 @@
 
 react redux react-redux redux-thunk react-router-dom asios
 
+// react-router如果使用history模式，生产模式服务器应作出相应配置，可参照
+
+https://router.vuejs.org/en/essentials/history-mode.html
+
+（没错是vue-router文档，服务器配置都一样）
+
 dynamic import
 
 babel-plugin-syntax-dynamic-import .babelrc文件的plungins中加上"syntax-dynamic-import"
