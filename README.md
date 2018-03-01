@@ -1,6 +1,6 @@
 # react_family basic framework
-## 一、技术栈 react redux react-redux redux-thunk react-router-dom asios
-## 二、懒加载
+### 一、技术栈 react redux react-redux redux-thunk react-router-dom asios
+### 二、懒加载
 ```javascript
 // 插件babel-plugin-syntax-dynamic-import -> syntax-dynamic-import
 // .babelrc中plugins
@@ -46,7 +46,7 @@ class Bundle extends Component {
   }
 }
 ```
-## 三、react-router如果使用history模式，生产模式服务器应作出相应配置，可参考https://router.vuejs.org/en/essentials/history-mode.html
+### 三、react-router如果使用history模式，生产模式服务器应作出相应配置，可参考https://router.vuejs.org/en/essentials/history-mode.html
 webpack
 ```javascript
 devServer: {
