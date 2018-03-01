@@ -93,3 +93,18 @@ http.createServer((req, res) => {
   console.log('Server listening on: http://localhost:%s', httpPort)
 })
 ```
+### 四、相关问题
+#### (1)依赖中es6语法无法转换成es5
+```
+ERROR in app.7606cf.js from UglifyJs
+Unexpected token: punc ()) [app.7606cf.
+```
+解决方法
+```
+{
+  test: /\.js$/,
+  use: 'babel-loader'
+  // 排除node_modules目录
+  //exclude: /node_modules/
+}
+```
